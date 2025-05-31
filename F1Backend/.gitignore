@@ -1,0 +1,65 @@
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# Maven
+/logs/
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# IDEA
+.idea/
+*.iml
+*.iws
+out/
+misc.xml
+modules.xml
+
+# VS Code
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+
+# Others
+*.swp
+*~
+
+# Spring Boot specific
+spring.log
+
+# Test output
+surefire-reports/
+
+# Application properties (if you want to ignore local overrides)
+# application-local.properties
+
