@@ -21,6 +21,7 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import ListItemText from "@mui/material/ListItemText";
 import Drawer from "@mui/material/Drawer";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -28,6 +29,7 @@ const Topbar = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const colorMode = useContext(ColorModeContext);
+    const navigate = useNavigate();
 
     const [open, setOpen] = React.useState(false);
 
@@ -38,6 +40,12 @@ const Topbar = () => {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    const menuItems = [
+        { text: 'Dashboard', route: '/' },
+        { text: 'Sessions', route: '/income' },
+        { text: 'Meetings', route: '/expenses' }
+    ];
 
     return (
         <Box display="flex" justifyContent="space-between" p={2}>
@@ -75,26 +83,26 @@ const Topbar = () => {
                 </div>
                 <Divider />
                 <List>
-                    {['Dashboard', 'Income', 'Expenses', 'Budget'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
+                    {menuItems.map((item, index) => (
+                        <ListItem key={item.text} disablePadding>
+                            <ListItemButton onClick={() => navigate(item.route)}>
                                 <ListItemIcon>
                                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                                 </ListItemIcon>
-                                <ListItemText primary={text} />
+                                <ListItemText primary={item.text} />
                             </ListItemButton>
                         </ListItem>
                     ))}
                 </List>
                 <Divider />
                 <List>
-                    {['Report'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
+                    {menuItems.map((item, index) => (
+                        <ListItem key={item.text} disablePadding>
+                            <ListItemButton onClick={() => navigate(item.route)}>
                                 <ListItemIcon>
                                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                                 </ListItemIcon>
-                                <ListItemText primary={text} />
+                                <ListItemText primary={item.text} />
                             </ListItemButton>
                         </ListItem>
                     ))}
