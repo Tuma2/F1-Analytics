@@ -3,6 +3,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Routes, Route} from "react-router-dom";
 import Topbar from "./scenes/global/topbar";
 import Dashboard from "./scenes/dashboard/index"; // Import the Dashboard component
+import Card from "./components/Card"; // Import the Card component
 // import Sidenav from "./scenes/global/Sidenav"; // Import the Sidebar component
 // import Sidebar from "./scenes/global/sidebar";
 
@@ -21,6 +22,7 @@ function App() {
               <Route path="/" element={<Dashboard />} /> {/* This route will render the Dashboard component */}
               {/* Add more routes here as needed */}
             </Routes>
+            <Card/>
 
           </main>
         </ThemeProvider>
