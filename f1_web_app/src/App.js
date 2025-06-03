@@ -1,29 +1,33 @@
-import {ColorModeContext, useMode } from "./theme";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Routes, Route} from "react-router-dom";
+import { ColorModeContext, useMode } from "./theme";
+import { CssBaseline, Grid, ThemeProvider } from "@mui/material";
+import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/topbar";
-import Dashboard from "./scenes/dashboard/index"; // Import the Dashboard component
-import Card from "./components/Card"; // Import the Card component
-// import Sidenav from "./scenes/global/Sidenav"; // Import the Sidebar component
-// import Sidebar from "./scenes/global/sidebar";
+import Dashboard from "./scenes/dashboard/index";
+import Card from "./components/Card";
+import Driver from "./pages/Driver";
+import CardList from "./components/CardList";
 
 function App() {
-  const [theme, colorMode] = useMode(); // use the custom hook to get the theme and color mode
+  const [theme, colorMode] = useMode();
 
   return (
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
-          <CssBaseline /> {/* This component will apply the theme to the entire application */}
+          <CssBaseline />
           <main className={"content"}>
-            <Topbar /> {/* This component will be the top bar of the application */}
-            {/*<Sidenav /> /!* This component will be the sidebar of the application *!/*/}
-            {/* <Sidebar /> */}
+            <Topbar />
             <Routes>
-              <Route path="/" element={<Dashboard />} /> {/* This route will render the Dashboard component */}
-              {/* Add more routes here as needed */}
+              <Route
+                  path="/"
+                  element={
+                    <>
+                      <Dashboard />
+                        <CardList />
+                    </>
+                  }
+              />
+              <Route path="/driver" element={<Driver />} />
             </Routes>
-            <Card/>
-
           </main>
         </ThemeProvider>
       </ColorModeContext.Provider>
