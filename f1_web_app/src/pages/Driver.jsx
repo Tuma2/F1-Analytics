@@ -39,6 +39,7 @@ const Driver = () => {
                 minHeight: "70vh",
                 width: "60vh",
                 borderRadius: "18px",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.25)", // <-- added
             }}>
                 <h1>Driver Information</h1>
                 {driverInfo ? (
@@ -63,6 +64,7 @@ const Driver = () => {
                 minHeight: "70vh",
                 width: "60vh",
                 borderRadius: "18px",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.25)", // <-- added
             }}>
                 <h1>Driver Video</h1>
                 <video
