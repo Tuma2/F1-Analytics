@@ -1,5 +1,6 @@
 package com.F1AnalyticsBE.F1Backend.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 public class Driver {
 
     @Id // Marks 'driverNumber' as the primary key
+    @Column(name = "driver_number", unique = true, nullable = false)
     private int driverNumber;
     private String broadcastName;
     private String countryCode;

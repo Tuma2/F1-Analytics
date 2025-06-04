@@ -39,13 +39,18 @@ public class OpenF1ClientImpl implements OpenF1Client {
                     new ParameterizedTypeReference<List<OpenF1Driver>>() {}
             );
 
-            if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+            if (response.getStatusCode().is2xxSuccessful()) {
                 List<OpenF1Driver> drivers = response.getBody();
-                log.info("Successfully fetched {} drivers", drivers.size());
-                return drivers;
+                if (drivers != null) {
+                    log.info("Successfully fetched {} drivers", drivers.size());
+                    return drivers;
+                } else {
+                    log.warn("No drivers found (empty response body)");
+                    return List.of();
+                }
             } else {
                 log.error("Failed to fetch drivers, status code: {}", response.getStatusCode());
-                return null;
+                return List.of();
             }
         }catch (Exception e) {
             log.error("Error fetching drivers from OpenF1 API: {}", e.getMessage(), e);

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState} from 'react';
 import {tokens} from "../theme";
 import {Box, useTheme} from "@mui/material";
 import { useLocation } from "react-router-dom";
@@ -7,7 +7,7 @@ import CardList from "../components/CardList"; // Assuming you have a CardList c
 const Driver = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [driver, setDriver] = useState('home');
+    // const [driver, setDriver] = useState('home');
     const [selectedDriver, setSelectedDriver] = useState(null);
 
     const handleSelectDriver = (driverData) => {

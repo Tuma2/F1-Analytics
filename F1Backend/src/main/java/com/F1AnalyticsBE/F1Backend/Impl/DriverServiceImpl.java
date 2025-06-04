@@ -8,8 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,20 +24,25 @@ public class DriverServiceImpl implements DriverService {
 
     private final OpenF1ClientImpl openF1Client;
 
+    @Override
     public List<Driver> refreshDrivers() {
-        log.info("Refreshing drivers from OpenF1 API");
-        List<OpenF1Driver> openF1drivers = openF1Client.getDrivers();
-
-        if (openF1drivers != null && !openF1drivers.isEmpty()) {
-            log.info("Saving {} drivers to the database", openF1drivers.size());
-            return openF1drivers.stream()
-                    .map(this::mapToDriver)
-                    .map(driverRepository::save)
-                    .toList();
-        } else {
-            log.warn("No drivers found to save");
-            return null;
+        List<OpenF1Driver> openF1Drivers = openF1Client.getDrivers();
+        if (openF1Drivers == null || openF1Drivers.isEmpty()) {
+            return List.of();
         }
+        driverRepository.deleteAll(); // Clear existing drivers
+
+        // Deduplicate by driverNumber
+        List<Driver> drivers = new ArrayList<>(openF1Drivers.stream()
+                .map(this::mapToDriver)
+                .collect(Collectors.toMap(
+                        Driver::getDriverNumber,
+                        d -> d,
+                        (existing, replacement) -> existing // keep the first occurrence
+                ))
+                .values());
+
+        return driverRepository.saveAll(drivers);
     }
 
     public List<Driver> getAllDrivers() {
