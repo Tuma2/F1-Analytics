@@ -2,7 +2,8 @@ import React, { useState} from 'react';
 import {tokens} from "../theme";
 import {Box, useTheme} from "@mui/material";
 import { useLocation } from "react-router-dom";
-import CardList from "../components/CardList"; // Assuming you have a CardList component to display driver cards
+import CardList from "../components/CardList";
+import Divider from "@mui/material/Divider"; // Assuming you have a CardList component to display driver cards
 
 const Driver = () => {
     const theme = useTheme();
@@ -32,7 +33,7 @@ const Driver = () => {
             <div style={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
+                // justifyContent: "center",
                 padding: "60px",
                 backgroundColor: colors.primary[400],
                 color: colors.grey[100],
@@ -43,11 +44,16 @@ const Driver = () => {
             }}>
                 <h1>Driver Information</h1>
                 {driverInfo ? (
+                    <>
                     <div>
-                        <h2>{driverInfo.name}</h2>
-                        <p>Team: {driverInfo.team}</p>
-                        <p>Points: {driverInfo.points}</p>
+                        <h1>Name: {driverInfo.name} {driverInfo.surname}</h1>
+                        <h2>Team: {driverInfo.team}</h2>
+                        <h3>Number: {driverInfo.driverNumber}</h3>
+                        <h3>Country : {driverInfo.country}</h3>
                     </div>
+                    <Divider style={{ margin: "20px 0" }} />
+
+                    </>
                 ) : (
                     <CardList onSelectDriver={handleSelectDriver} />
                 )}

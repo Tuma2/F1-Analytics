@@ -30,15 +30,17 @@ public class DriverServiceImpl implements DriverService {
         if (openF1Drivers == null || openF1Drivers.isEmpty()) {
             return List.of();
         }
-        driverRepository.deleteAll(); // Clear existing drivers
+        driverRepository.deleteAll();
 
-        // Deduplicate by driverNumber
+        // Filter for active drivers (teamName != null), then deduplicate
         List<Driver> drivers = new ArrayList<>(openF1Drivers.stream()
+                .filter(d -> d.getTeamName() != null)
+                .filter(d -> d.getHeadshotUrl() != null && !d.getHeadshotUrl().isBlank())
                 .map(this::mapToDriver)
                 .collect(Collectors.toMap(
                         Driver::getDriverNumber,
                         d -> d,
-                        (existing, replacement) -> existing // keep the first occurrence
+                        (existing, replacement) -> existing
                 ))
                 .values());
 

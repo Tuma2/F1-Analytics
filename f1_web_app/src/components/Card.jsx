@@ -7,6 +7,7 @@ import CardActionArea from '@mui/material/CardActionArea';
 import {Box, useTheme} from "@mui/material";
 import {ColorModeContext, tokens} from "../theme";
 import {useNavigate} from "react-router-dom";
+import {getCountryByIso} from "../scenes/global/Countries"
 
 const InteractiveCard = ({driver}) => {
 
@@ -37,22 +38,26 @@ const InteractiveCard = ({driver}) => {
                 <CardActionArea onClick={() => navigate('/driver',{
                     state:{
                         name: driver.name,
-                        team: driver.team,
-                        points: driver.points,
+                        team: driver.teamName,
+                        surname: driver.surname,
+                        driverNumber: driver.driverNumber,
+                        country: driver.countryCode
+                            ? (getCountryByIso(driver.countryCode)?.name || driver.countryCode || 'Unknown Country')
+                            : 'Unknown Country'
                     }
                 })}>
                     <CardMedia
                         component="img"
                         height="400"
-                        image="https://www.formula1.com/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/1col/image.png"
+                        image={driver.driverImageUrl}
                         alt={`${driver.name} F1 Driver`}
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div" color={colors.grey[100]}>
-                            {driver.name}
+                            Driver: {driver.name} {driver.surname}
                         </Typography>
                         <Typography variant="body2" color={colors.grey[300]}>
-                            Team: {driver.team} | Points: {driver.points}
+                            Team: {driver.teamName}
                         </Typography>
                     </CardContent>
                 </CardActionArea>
